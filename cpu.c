@@ -20,37 +20,30 @@ void load_font(CHIP_8_CPU* cpu);
 CHIP_8_CPU *init_cpu(char* file_name) {
 	CHIP_8_CPU *cpu;
 	cpu = (CHIP_8_CPU*) malloc(sizeof(*cpu));
+    
     cpu->_ram = init_chip8_memory();
+    if (memory_load_rom(cpu->_ram, file_name) != RESULT_SUCCESSFUL) {
+        return NULL;
+    }
+    
 	memset(cpu->_vram, 0, sizeof(cpu->_vram));
 	memset(cpu->_stack, 0, sizeof(cpu->_stack));
 	memset(cpu->_vRegisters, 0, sizeof(cpu->_vRegisters));
-	cpu->_stackCounter = 0;
+	
+    cpu->_stackCounter = 0;
 	cpu->_iRegister = 0;
 	cpu->_delayTimer = 0;
 	cpu->_soundTimer = 0;
 	cpu->_memoryOffset = 0x200; // User code starts from 0x200
 	cpu->_keys = 0;
-	load_font(cpu);
-	FILE * pFile;
-	pFile = fopen(file_name, "rb");
-	if (pFile == NULL )
-		return NULL ;
-    
-	fread(&(cpu->_ram[0x200]), 4096 - 0x200, 1, pFile);
-	fclose(pFile);
     
 	return cpu;
 }
 
-void load_font(CHIP_8_CPU* cpu) {
-
-}
-
 int cpu_tick(CHIP_8_CPU* cpu) {
     WORD opcode = 0x0000;
+    
     // Getting opcode from memory
-    // opcode = (cpu->_ram[cpu->_memoryOffset] << 8)
-    //          + cpu->_ram[cpu->_memoryOffset + 1];
     opcode = memory_read_word(cpu->_ram, cpu->_memoryOffset);
     cpu->_memoryOffset += 2;
     cpu->_delayTimer--;

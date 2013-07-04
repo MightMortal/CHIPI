@@ -8,6 +8,7 @@
 #include "memory.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 CHIP_8_MEMORY init_chip8_memory() {
     CHIP_8_MEMORY memory = (CHIP_8_MEMORY)malloc(MEMORY_SIZE);
@@ -135,4 +136,16 @@ void memory_write_byte(CHIP_8_MEMORY memory, WORD addr, BYTE value) {
 
 void deinit_chip8_memory(CHIP_8_MEMORY memory) {
     free(memory);
+}
+
+int memory_load_rom(CHIP_8_MEMORY memory, char* file_name) {
+	FILE * pFile;
+	pFile = fopen(file_name, "rb");
+	if (pFile == NULL)
+		return RESULT_ERROR;
+    
+	fread(&memory[0x200], MEMORY_SIZE - 0x200, 1, pFile);
+	fclose(pFile);
+    
+    return RESULT_SUCCESSFUL;
 }
