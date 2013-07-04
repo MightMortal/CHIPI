@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
 #include "include/GL/glfw.h"
 /*
  * Main implementation for CHIP-8 emulator
@@ -175,19 +174,22 @@ void get_input(CHIP_8_CPU* cpu) {
 }
 
 void start_emulation(CHIP_8_CPU* cpu) {
-	clock_t last_time = clock();
-	clock_t new_time = clock();
-	clock_t unprocessed = 0;
-	const clock_t clock_per_tick = CLOCKS_PER_SEC / 400;
-	running = 1;
+    const unsigned int RUNNING_RATE = 60; // Running rate in Hz. Default is 60Hz
+	const double time_per_tick = 1000000 / RUNNING_RATE;
+	double last_time = glfwGetTime() * 1000000; // Getting time in ns
+	double new_time = glfwGetTime() * 1000000; // Getting time in ns
+	double unprocessed = 0;
+    WORD opcode = 0x0000;
+    
+    running = 1;
 	while (running) {
 		// Main loop
 		last_time = new_time;
-		new_time = clock();
+		new_time = glfwGetTime() * 1000000; // Getting time in ns
 		unprocessed += new_time - last_time;
-		while (unprocessed > clock_per_tick) {
-			get_input(cpu);
-			WORD opcode;
+		while (unprocessed > time_per_tick) {
+            glfwPollEvents();
+			get_input(cpu); // Update input
 
 			// Getting opcode from memory
 			opcode = (cpu->_ram[cpu->_memoryOffset] << 8)
@@ -197,6 +199,7 @@ void start_emulation(CHIP_8_CPU* cpu) {
 
 			if (cpu->_memoryOffset > 4096)
 				cpu->_memoryOffset = 4096;
+            // printf("Opcode <%X>\n", opcode);
 			switch ((opcode & 0xF000) >> 12) {
 			case 0x0:
 				switch (opcode) {
@@ -331,10 +334,10 @@ void start_emulation(CHIP_8_CPU* cpu) {
 				}
 				break;
 			}
-			unprocessed -= clock_per_tick;
+			unprocessed -= time_per_tick;
 		}
 		render(cpu);
-		glfwSleep(1 / 60);
+		glfwSleep(0.002f);
 		running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
 	}
 }
@@ -344,11 +347,11 @@ int main(int argc, char** argv) {
 
 	if (argc < 2) {
 		printf("You must send rom file in the arguments\n");
-		printf("Example: chipi8.exe my_game.rom\n");
+		printf("Example: chipi my_game.rom\n");
 		return 1;
 	}
 	if (init_render() == RESULT_ERROR) {
-		printf("can't init render");
+		printf("Can't init render system\n");
 		return 1;
 	}
 
