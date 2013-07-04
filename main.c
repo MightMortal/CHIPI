@@ -40,102 +40,102 @@ CHIP_8_CPU *init_cpu(char* file_name) {
 }
 
 void load_font(CHIP_8_CPU* cpu) {
-	// "0"
-	cpu->_ram[0] = 0xF0;
-	cpu->_ram[1] = 0x90;
-	cpu->_ram[2] = 0x90;
-	cpu->_ram[3] = 0x90;
-	cpu->_ram[4] = 0xF0;
-	// "1"
-	cpu->_ram[5] = 0x20;
-	cpu->_ram[6] = 0x60;
-	cpu->_ram[7] = 0x20;
-	cpu->_ram[8] = 0x20;
-	cpu->_ram[9] = 0x70;
-	// "2"
-	cpu->_ram[10] = 0xF0;
-	cpu->_ram[11] = 0x10;
-	cpu->_ram[12] = 0xF0;
-	cpu->_ram[13] = 0x80;
-	cpu->_ram[14] = 0xF0;
-	// "3"
-	cpu->_ram[15] = 0xF0;
-	cpu->_ram[16] = 0x10;
-	cpu->_ram[17] = 0xF0;
-	cpu->_ram[18] = 0x10;
-	cpu->_ram[19] = 0xF0;
-	// "4"
-	cpu->_ram[20] = 0x90;
-	cpu->_ram[21] = 0x90;
-	cpu->_ram[22] = 0xF0;
-	cpu->_ram[23] = 0x10;
-	cpu->_ram[24] = 0x10;
-	// "5"
-	cpu->_ram[25] = 0xF0;
-	cpu->_ram[26] = 0x80;
-	cpu->_ram[27] = 0xF0;
-	cpu->_ram[28] = 0x10;
-	cpu->_ram[29] = 0xF0;
-	// "6"
-	cpu->_ram[30] = 0xF0;
-	cpu->_ram[31] = 0x80;
-	cpu->_ram[32] = 0xF0;
-	cpu->_ram[33] = 0x90;
-	cpu->_ram[34] = 0xF0;
-	// "7"
-	cpu->_ram[35] = 0xF0;
-	cpu->_ram[36] = 0x10;
-	cpu->_ram[37] = 0x20;
-	cpu->_ram[38] = 0x40;
-	cpu->_ram[39] = 0x40;
-	// "8"
-	cpu->_ram[40] = 0xF0;
-	cpu->_ram[41] = 0x90;
-	cpu->_ram[42] = 0xF0;
-	cpu->_ram[43] = 0x90;
-	cpu->_ram[44] = 0xF0;
-	// "9"
-	cpu->_ram[45] = 0xF0;
-	cpu->_ram[46] = 0x90;
-	cpu->_ram[47] = 0xF0;
-	cpu->_ram[48] = 0X10;
-	cpu->_ram[49] = 0XF0;
-	// "A"
-	cpu->_ram[50] = 0xF0;
-	cpu->_ram[51] = 0x90;
-	cpu->_ram[52] = 0xF0;
-	cpu->_ram[53] = 0x90;
-	cpu->_ram[54] = 0x90;
-	// "B"
-	cpu->_ram[55] = 0xE0;
-	cpu->_ram[56] = 0x90;
-	cpu->_ram[57] = 0xE0;
-	cpu->_ram[58] = 0x90;
-	cpu->_ram[59] = 0xE0;
-	// "C"
-	cpu->_ram[60] = 0xF0;
-	cpu->_ram[61] = 0x80;
-	cpu->_ram[62] = 0x80;
-	cpu->_ram[63] = 0x80;
-	cpu->_ram[64] = 0xF0;
-	// "D"
-	cpu->_ram[65] = 0xE0;
-	cpu->_ram[66] = 0x90;
-	cpu->_ram[67] = 0x90;
-	cpu->_ram[68] = 0x90;
-	cpu->_ram[69] = 0xE0;
-	// "E"
-	cpu->_ram[70] = 0xF0;
-	cpu->_ram[71] = 0x80;
-	cpu->_ram[72] = 0xF0;
-	cpu->_ram[73] = 0x80;
-	cpu->_ram[74] = 0xF0;
-	// "F"
-	cpu->_ram[75] = 0xF0;
-	cpu->_ram[76] = 0x80;
-	cpu->_ram[77] = 0xF0;
-	cpu->_ram[78] = 0x80;
-	cpu->_ram[79] = 0x80;
+
+	cpu->_ram[0x00] = 0xF0; // ****
+	cpu->_ram[0x01] = 0x90; // *  *
+	cpu->_ram[0x02] = 0x90; // *  *
+	cpu->_ram[0x03] = 0x90; // *  *
+	cpu->_ram[0x04] = 0xF0; // ****
+
+	cpu->_ram[0x05] = 0x20; //   *
+	cpu->_ram[0x06] = 0x60; //  **
+	cpu->_ram[0x07] = 0x20; //   *
+	cpu->_ram[0x08] = 0x20; //   *
+	cpu->_ram[0x09] = 0x70; //  ***
+
+	cpu->_ram[0x0A] = 0xF0; // ****
+	cpu->_ram[0x0B] = 0x10; //    *
+	cpu->_ram[0x0C] = 0xF0; // ****
+	cpu->_ram[0x0D] = 0x80; // *
+	cpu->_ram[0x0E] = 0xF0; // ****
+
+	cpu->_ram[0x0F] = 0xF0; // ****
+	cpu->_ram[0x10] = 0x10; //    *
+	cpu->_ram[0x11] = 0xF0; // ****
+	cpu->_ram[0x12] = 0x10; //    *
+	cpu->_ram[0x13] = 0xF0; // ****
+
+	cpu->_ram[0x14] = 0x90; // *  *
+	cpu->_ram[0x15] = 0x90; // *  *
+	cpu->_ram[0x16] = 0xF0; // ****
+	cpu->_ram[0x17] = 0x10; //    *
+	cpu->_ram[0x18] = 0x10; //    *
+
+	cpu->_ram[0x19] = 0xF0; // ****
+	cpu->_ram[0x1A] = 0x80; // *
+	cpu->_ram[0x1B] = 0xF0; // ****
+	cpu->_ram[0x1C] = 0x10; //    *
+	cpu->_ram[0x1D] = 0xF0; // ****
+
+	cpu->_ram[0x1E] = 0xF0; // ****
+	cpu->_ram[0x1F] = 0x80; // *
+	cpu->_ram[0x20] = 0xF0; // ****
+	cpu->_ram[0x21] = 0x90; // *  *
+	cpu->_ram[0x22] = 0xF0; // ****
+
+	cpu->_ram[0x23] = 0xF0; // ****
+	cpu->_ram[0x24] = 0x10; //    *
+	cpu->_ram[0x25] = 0x20; //   *
+	cpu->_ram[0x26] = 0x40; //  *
+	cpu->_ram[0x27] = 0x40; //  *
+
+	cpu->_ram[0x28] = 0xF0; // ****
+	cpu->_ram[0x29] = 0x90; // *  *
+	cpu->_ram[0x2A] = 0xF0; // ****
+	cpu->_ram[0x2B] = 0x90; // *  *
+	cpu->_ram[0x2C] = 0xF0; // ****
+
+	cpu->_ram[0x2D] = 0xF0; // ****
+	cpu->_ram[0x2E] = 0x90; // *  *
+	cpu->_ram[0x2F] = 0xF0; // ****
+	cpu->_ram[0x30] = 0X10; //    *
+	cpu->_ram[0x31] = 0XF0; // ****
+
+	cpu->_ram[0x32] = 0xF0; // ****
+	cpu->_ram[0x33] = 0x90; // *  *
+	cpu->_ram[0x34] = 0xF0; // ****
+	cpu->_ram[0x35] = 0x90; // *  *
+	cpu->_ram[0x36] = 0x90; // *  *
+
+	cpu->_ram[0x37] = 0xE0; // ***
+	cpu->_ram[0x38] = 0x90; // *  *
+	cpu->_ram[0x39] = 0xE0; // ***
+	cpu->_ram[0x3A] = 0x90; // *  *
+	cpu->_ram[0x3B] = 0xE0; // ***
+
+	cpu->_ram[0x3C] = 0xF0; // ****
+	cpu->_ram[0x3D] = 0x80; // *
+	cpu->_ram[0x3E] = 0x80; // *
+	cpu->_ram[0x3F] = 0x80; // *
+	cpu->_ram[0x40] = 0xF0; // ****
+
+	cpu->_ram[0x41] = 0xE0; // ***
+	cpu->_ram[0x42] = 0x90; // *  *
+	cpu->_ram[0x43] = 0x90; // *  *
+	cpu->_ram[0x44] = 0x90; // *  *
+	cpu->_ram[0x45] = 0xE0; // ***
+
+	cpu->_ram[0x46] = 0xF0; // ****
+	cpu->_ram[0x47] = 0x80; // *
+	cpu->_ram[0x48] = 0xF0; // ****
+	cpu->_ram[0x49] = 0x80; // *
+	cpu->_ram[0x4A] = 0xF0; // ****
+
+	cpu->_ram[0x4B] = 0xF0; // ****
+	cpu->_ram[0x4C] = 0x80; // *
+	cpu->_ram[0x4D] = 0xF0; // ****
+	cpu->_ram[0x4E] = 0x80; // *
+	cpu->_ram[0x4F] = 0x80; // *
 }
 
 void get_input(CHIP_8_CPU* cpu) {
