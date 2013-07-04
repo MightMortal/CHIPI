@@ -11,7 +11,6 @@
 #include <string.h>
 
 #include "include/GL/glfw.h"
-#include "opcodes.h"
 #include "data_types.h"
 #include "io.h"
 
