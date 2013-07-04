@@ -1,11 +1,15 @@
-#include "include/render.h"
-#include "include/main.h"
-#include "include/GL/glfw.h"
 /*
- * Render for CHIP-8 emulator
- * Implementation
+ * CHIPI
+ * CHIP-8 Interpreter writed in Plain C
  * Author: MightMortal
+ * © 2013 MightMortal
+ * Licence: -----
  */
+#include "render.h"
+
+#include "include/GL/glfw.h"
+
+#include "main.h"
 
 int init_render() {
 	glfwInit();
@@ -28,7 +32,7 @@ int init_render() {
 	return RESULT_SUCCESSFUL;
 }
 
-void exit_render() {
+void deinit_render() {
 	glfwCloseWindow();
 	glfwTerminate();
 }

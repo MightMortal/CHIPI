@@ -1,17 +1,19 @@
-#include "include/main.h"
-#include "include/opcodes.h"
-#include "include/render.h"
+/*
+ * CHIPI
+ * CHIP-8 Interpreter writed in Plain C
+ * Author: MightMortal
+ * © 2013 MightMortal
+ * Licence: -----
+ */
+#include "main.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "include/GL/glfw.h"
-/*
- * Main implementation for CHIP-8 emulator
- * Implementation
- * Author: MightMortal
- */
 
-int running = 0;
+#include "include/GL/glfw.h"
+#include "opcodes.h"
+#include "render.h"
 
 CHIP_8_CPU *init_cpu(char* file_name) {
 	CHIP_8_CPU *cpu;
@@ -181,7 +183,7 @@ void start_emulation(CHIP_8_CPU* cpu) {
 	double unprocessed = 0;
     WORD opcode = 0x0000;
     
-    running = 1;
+    int running = 1;
 	while (running) {
 		// Main loop
 		last_time = new_time;
@@ -359,7 +361,7 @@ int main(int argc, char** argv) {
 
 	if (cpu != 0) {
 		start_emulation(cpu);
-		exit_render();
+		deinit_render();
 	} else {
 		printf("Can't init CPU or load rom\n");
 		return 1;

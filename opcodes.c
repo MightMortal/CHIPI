@@ -1,17 +1,20 @@
-#include "include/opcodes.h"
+/*
+ * CHIPI
+ * CHIP-8 Interpreter writed in Plain C
+ * Author: MightMortal
+ * © 2013 MightMortal
+ * Licence: -----
+ */
+#include "opcodes.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-/*
- * OP codes for CHIP-8 emulator
- * Implemetation
- * Author: MightMortal
- */
 
 // 0NNN - Calls RCA 1802 program at address NNN.
 void op_0NNN(WORD opcode, CHIP_8_CPU *cpu) {
-	// if (opcode)
-	// 	printf("Not Implemented.\n");
+	if (opcode)
+	 	printf("RCA 1802 not implemented.\n");
 }
 
 // 00E0 - Clears the screen.
@@ -201,11 +204,13 @@ void op_CXNN(WORD opcode, CHIP_8_CPU *cpu) {
 	cpu->_vRegisters[VX] = (rand() % 0xFF) & (opcode & 0x00FF);
 }
 
-// DXYN - Draws a sprite at coordinate (VX, VY) that has a width of 8 pixels and a height of N pixels.
-// Each row of 8 pixels is read as bit-coded (with the most significant bit of each byte displayed on the left) starting from memory location I; 
-// I value doesn't change after the execution of this instruction. 
-// As described above, VF is set to 1 if any screen pixels are flipped from set to unset when the sprite is drawn, 
-// and to 0 if that doesn't happen.
+/* 
+ * DXYN - Draws a sprite at coordinate (VX, VY) that has a width of 8 pixels and a height of N pixels.
+ * Each row of 8 pixels is read as bit-coded (with the most significant bit of each byte displayed on the left)
+ * starting from memory location I; I value doesn't change after the execution of this instruction.
+ * As described above, VF is set to 1 if any screen pixels are flipped from set to unset when the sprite is drawn,
+ * and to 0 if that doesn't happen.
+ */
 void op_DXYN(WORD opcode, CHIP_8_CPU *cpu) {
 	BYTE xp = cpu->_vRegisters[(opcode & 0x0F00) >> 8];
 	BYTE yp = cpu->_vRegisters[(opcode & 0x00F0) >> 4];
