@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-#include <GL/glfw.h>
+#include "include/GL/glfw.h"
 /*
  * Main implementation for CHIP-8 emulator
  * Implementation

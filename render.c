@@ -1,7 +1,6 @@
 #include "include/render.h"
 #include "include/main.h"
-#include "GL/glfw.h"
-#include "GL/gl.h"
+#include "include/GL/glfw.h"
 /*
  * Render for CHIP-8 emulator
  * Implementation
