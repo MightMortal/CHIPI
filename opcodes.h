@@ -7,8 +7,8 @@
  * © 2013 MightMortal
  * Licence: -----
  */
-
 #include "data_types.h"
+#include "cpu.h"
 
 // 0NNN - Calls RCA 1802 program at address NNN.
 void op_0NNN(WORD opcode, CHIP_8_CPU *cpu);

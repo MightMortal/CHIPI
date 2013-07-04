@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "memory.h"
 
 // 0NNN - Calls RCA 1802 program at address NNN.
 void op_0NNN(WORD opcode, CHIP_8_CPU *cpu) {
@@ -218,7 +219,7 @@ void op_DXYN(WORD opcode, CHIP_8_CPU *cpu) {
 	cpu->_vRegisters[0xF] = 0x0;
 
 	for (int y = cpu->_iRegister; y < cpu->_iRegister + h; y++) {
-		BYTE row = cpu->_ram[y];
+		BYTE row = memory_read_byte(cpu->_ram, y);
 
 		for (int x = 0; x < SPRITE_WIDTH; x++) {
 			BYTE new_pixel = (row >> (7 - x)) & 1;
@@ -299,9 +300,9 @@ void op_FX33(WORD opcode, CHIP_8_CPU *cpu) {
 	BYTE VX = (opcode & 0x0F00) >> 8;
 	BYTE number = cpu->_vRegisters[VX];
 
-	cpu->_ram[cpu->_iRegister] = number / 100;
-	cpu->_ram[cpu->_iRegister + 1] = (number / 10) % 10;
-	cpu->_ram[cpu->_iRegister + 2] = number % 10;
+	memory_write_byte(cpu->_ram, cpu->_iRegister, number / 100);
+    memory_write_byte(cpu->_ram, cpu->_iRegister + 1, (number / 10) % 10);
+    memory_write_byte(cpu->_ram, cpu->_iRegister + 2, number % 10);
 }
 
 // FX55 - Stores V0 to VX in memory starting at address I.
@@ -309,8 +310,9 @@ void op_FX55(WORD opcode, CHIP_8_CPU *cpu) {
 	BYTE VX = (opcode & 0x0F00) >> 8;
 	WORD _i = cpu->_iRegister;
 
-	for (BYTE i = 0; i <= VX; i++)
-		cpu->_ram[_i + i] = cpu->_vRegisters[i];
+	for (BYTE i = 0; i <= VX; i++) {
+        memory_write_byte(cpu->_ram, _i + i, cpu->_vRegisters[i]);
+    }
 }
 
 // FX65 - Fills V0 to VX with values from memory starting at address I.
@@ -318,6 +320,7 @@ void op_FX65(WORD opcode, CHIP_8_CPU *cpu) {
 	BYTE VX = (opcode & 0x0F00) >> 8;
 	WORD _i = cpu->_iRegister;
 
-	for (BYTE i = 0; i <= VX; i++)
-		cpu->_vRegisters[i] = cpu->_ram[_i + i];
+	for (BYTE i = 0; i <= VX; i++) {
+        cpu->_vRegisters[i] = memory_read_byte(cpu->_ram, _i + i);
+    }
 }

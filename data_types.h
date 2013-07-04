@@ -22,17 +22,4 @@ typedef unsigned short WORD;
 
 #define SPRITE_WIDTH 8
 
-typedef struct CHIP_8_CPU_ {
-	BYTE _ram[MEMORY_SIZE];                  // RAM
-	BYTE _vram[SCREEN_WIDTH][SCREEN_HEIGHT]; // Video RAM
-	WORD _stack[STACK_SIZE];                 // Stack, 32 bits per level, 16 levels
-	BYTE _stackCounter;                      // Stack Counter
-	BYTE _vRegisters[16];                    // 16 Registers(V0..VF), 8 bits each
-	WORD _iRegister;                         // I register, size 16 bits
-	BYTE _delayTimer;                        // Delay timer
-	BYTE _soundTimer;                        // Sound timer
-	WORD _memoryOffset;                      // Current memory offset
-	WORD _keys;                              // Keyboard input
-} CHIP_8_CPU;
-
 #endif /* CHIPI_8_TYPES */
