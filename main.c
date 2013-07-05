@@ -13,6 +13,7 @@
 #include "include/GL/glfw.h"
 #include "data_types.h"
 #include "io.h"
+#include "disasm.h"
 
 void start_emulation(CHIP_8_CPU* cpu) {
     const unsigned int RUNNING_RATE = 60; // Running rate in Hz. Default is 60Hz
@@ -47,22 +48,31 @@ int main(int argc, char** argv) {
 		printf("Example: chipi my_game.rom\n");
 		return 1;
 	}
-	if (init_io() == RESULT_ERROR) {
-		printf("Can't init render system\n");
-		return 1;
-	}
-
-	cpu = init_cpu(argv[1]);
-
-	if (cpu != 0) {
-		start_emulation(cpu);
-		deinit_io();
-        deinit_cpu(cpu);
-        cpu = NULL;
-	} else {
-		printf("Can't init CPU or load rom\n");
-		return 1;
-	}
+    if (strcmp(argv[1], "-d") == 0) { // Disasembler
+        if (argc < 3) {
+            printf("You must send rom file in the arguments for disasm\n");
+            printf("Example: chipi -d my_game.rom\n");
+            return 1;
+        }
+        disasm_rom(argv[2], "disasm.c8");
+    } else {
+        if (init_io() == RESULT_ERROR) {
+            printf("Can't init IO system\n");
+            return 1;
+        }
+        
+        cpu = init_cpu(argv[1]);
+        
+        if (cpu != 0) {
+            start_emulation(cpu);
+            deinit_io();
+            deinit_cpu(cpu);
+            cpu = NULL;
+        } else {
+            printf("Can't init CPU or load rom\n");
+            return 1;
+        }
+    }
 
 	return 0;
 }
