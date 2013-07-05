@@ -54,7 +54,10 @@ int main(int argc, char** argv) {
             printf("Example: chipi -d my_game.rom\n");
             return 1;
         }
-        disasm_rom(argv[2], "disasm.c8");
+        char* output_file_path = calloc(sizeof(char), strlen(argv[2] + 5));
+        strcpy(output_file_path, argv[2]);
+        strcat(output_file_path, ".asm\0");
+        disasm_rom(argv[2], output_file_path);
     } else {
         if (init_io() == RESULT_ERROR) {
             printf("Can't init IO system\n");
